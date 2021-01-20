@@ -13,7 +13,7 @@ CLASSES = \
 	Player.java \
 	Computer.java
 
-MAIN = tictactoe 
+MAIN = TicGame 
 
 default: classes
 
