@@ -24,13 +24,62 @@ public class TicGame{
 				if(oneOrTwo.equals("n")){
 					gameOver = twoPlayerGame(playerOne, random, currBoard);
 				} else{
-					Computer comp = new Computer();
+					gameOver = onePlayerGame(playerOne, random, currBoard);
 				}
 			}
 
 
 			playOn = playAgain();
 		}
+	}
+
+	public static boolean onePlayerGame(Player playerOne, int random, String[] currBoard) throws InterruptedException{
+		Computer comp = new Computer();
+
+		boolean gameOver = false;
+		int nextMove;
+
+		print("Picking who goes first");
+		Thread.sleep(400);
+		print(".");
+		Thread.sleep(400);
+		print(".");
+		Thread.sleep(400);
+		print(".");
+		Thread.sleep(400);
+		print(".");
+		Thread.sleep(600);
+		println("\n");
+
+		if(random > 25){
+			println(playerOne.getName() + " goes First.");
+		} else{
+			println("The computer will go First.");
+		}
+
+		println("Let us start the game!");
+		println("Here is the board and each position's corresponding number.");
+		printBoard(currBoard);
+		Thread.sleep(1400);
+		currBoard = clearBoard(currBoard);
+
+		while(!gameOver){
+			if(random > 25){
+				nextMove = playerOne.getMove(currBoard);
+				currBoard = setMove(currBoard, nextMove, 1);
+				gameOver = playerOne.checkForWinner(currBoard);
+				random -= 25;
+				printBoard(currBoard);
+			}else{
+				nextMove = comp.compMove(currBoard);
+				currBoard = setMove(currBoard, nextMove, 2);
+				gameOver = comp.checkForWinner(currBoard);
+				random += 25;
+				printBoard(currBoard);
+			}
+		}
+
+		return gameOver;
 	}
 
 	public static boolean twoPlayerGame(Player playerOne, int random, String[] currBoard) throws InterruptedException{
